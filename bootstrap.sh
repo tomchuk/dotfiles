@@ -5,8 +5,11 @@ cd "$(dirname "${BASH_SOURCE}")";
 git pull origin master;
 
 function doIt() {
-	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
-		--exclude "README.md" --exclude "LICENSE-MIT.txt" -avh --no-perms . ~;
+	for file in `ls -1a | egrep -v '^(.git|.DS_Store|bootstrap.sh|README.md|LICENSE-MIT.txt|init|bin|brew.sh|.|..)$'`
+	do
+		test -h "$HOME/$file" && rm "$HOME/$file" || echo "Skipping $file"
+		ln -sf "`pwd`/$file" "$HOME/$file"
+	done
 	source ~/.bash_profile;
 }
 
