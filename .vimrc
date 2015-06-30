@@ -1,3 +1,4 @@
+execute pathogen#infect()
 " Use the Solarized Dark theme
 set t_Co=256
 set background=dark
@@ -110,7 +111,8 @@ if has("autocmd")
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
     filetype plugin indent on
-    autocmd FileType python compiler flake8
+    " autocmd FileType python compiler flake8
+    autocmd BufWritePost *.py call Flake8()
 endif
 
 
