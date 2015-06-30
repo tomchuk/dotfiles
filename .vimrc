@@ -1,7 +1,7 @@
 " Use the Solarized Dark theme
+set t_Co=256
 set background=dark
-colorscheme solarized
-let g:solarized_termtrans=1
+colorscheme desert256
 
 " Make Vim more useful
 set nocompatible
@@ -40,27 +40,18 @@ set modelines=4
 " Enable per-directory .vimrc files and disable unsafe commands in them
 set exrc
 set secure
-" Enable line numbers
-set number
 " Enable syntax highlighting
 syntax on
-" Highlight current line
-set cursorline
 " Make tabs as wide as two spaces
 set tabstop=4
-" Show “invisible” characters
-set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
-set list
 " Highlight searches
 set hlsearch
 " Ignore case of searches
-set ignorecase
+set ignorecase smartcase
 " Highlight dynamically as pattern is typed
 set incsearch
 " Always show status line
 set laststatus=2
-" Enable mouse in all modes
-set mouse=a
 " Disable error bells
 set noerrorbells
 " Don’t reset cursor to start of line when moving around.
@@ -73,15 +64,23 @@ set shortmess=atI
 set showmode
 " Show the filename in the window titlebar
 set title
+" Use spaces not tabs
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set showmatch
+set switchbuf=useopen
+set numberwidth=5
+set showtabline=2
+set t_ti= t_te=
+set colorcolumn=99
 " Show the (partial) command as it’s being typed
 set showcmd
-" Use relative line numbers
-if exists("&relativenumber")
-	set relativenumber
-	au BufReadPost * set relativenumber
-endif
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
+set history=10000
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
@@ -94,6 +93,13 @@ endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
+set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+" Clear the search buffer when hitting return¬
+function! MapCR()
+  nnoremap <cr> :nohlsearch<cr>
+endfunction
+call MapCR()
+nnoremap <leader><leader> <c-^>
 
 " Automatic commands
 if has("autocmd")
@@ -103,4 +109,11 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
+    filetype plugin indent on
+    autocmd FileType python compiler flake8
 endif
+
+
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup

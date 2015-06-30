@@ -7,10 +7,8 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
-alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias p="cd ~/projects"
 alias g="git"
 alias h="history"
 alias j="jobs"
@@ -139,3 +137,11 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
+
+alias napa='cd /Users/thomas/src/napa; . env/bin/activate'
+alias runserver="cd ~/src/napa; . env/bin/activate; ./manage.py runserver --werkzeug --traceback"
+alias s="cd ~/src/napa; . env/bin/activate; ./manage.py shell_plus"
+alias celeryd='cd ~/src/napa; lunchy restart rabbit; sleep 2; . env/bin/activate; PYTHONPATH="napa/apps:napa/config:napa/apps/django-js-utils:.:napa" celery worker -A napa.napa_celery_app --purge -c 2 -l INFO --autoreload --without-gossip --without-mingle --without-heartbeat'
+alias pyc="find . -name '__pycache__' -o -name '*.pyc' | xargs rm -rf"
+alias f="ag --py --ignore=env --ignore='*migration*' --ignore='*icomoon*'"
+
