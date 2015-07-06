@@ -75,10 +75,7 @@
     b = branch -a
     bd = branch -D
     cp = cherry-pick
-    d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
-    di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
-    dp = diff @{1}.
-    p = !"git pull; git submodule foreach git pull origin master"
+    unstage = "!git reset --soft HEAD^"
 
 
 [apply]
@@ -87,6 +84,8 @@
 	whitespace = fix
 
 [core]
+    # convert CRLF to LF on commit but not the other way around
+    autocrlf = input
 
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
@@ -95,7 +94,7 @@
 	# Treat spaces before tabs and all kinds of trailing whitespace as an error
 	# [default] trailing-space: looks for spaces at the end of a line
 	# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
-	whitespace = indent-with-non-tab,trailing-space
+	whitespace = trailing-space,blank-at-eol,blank-at-eof,space-before-tab,tab-in-indent
 
 	# Make `git rebase` safer on OS X
 	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>

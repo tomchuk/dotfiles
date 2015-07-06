@@ -43,8 +43,6 @@ set exrc
 set secure
 " Enable syntax highlighting
 syntax on
-" Make tabs as wide as two spaces
-set tabstop=4
 " Highlight searches
 set hlsearch
 " Ignore case of searches
@@ -66,6 +64,7 @@ set showmode
 " Show the filename in the window titlebar
 set title
 " Use spaces not tabs
+filetype plugin indent on
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -77,6 +76,7 @@ set numberwidth=5
 set showtabline=2
 set t_ti= t_te=
 set colorcolumn=99
+set lazyredraw
 " Show the (partial) command as it’s being typed
 set showcmd
 " Start scrolling three lines before the horizontal window border
@@ -110,12 +110,23 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
-    filetype plugin indent on
     " autocmd FileType python compiler flake8
-    autocmd BufWritePost *.py call Flake8()
+    " autocmd BufWritePost *.py call Flake8()
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-
+let python_highlight_all = 1
+let g:flake8_show_in_gutter=1
+let g:flake8_show_in_file=1
 python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8']
