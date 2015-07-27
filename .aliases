@@ -140,9 +140,9 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias reload="exec $SHELL -l"
 
 alias napa='cd /Users/thomas/src/napa; . env/bin/activate'
-alias runserver="cd ~/src/napa; . env/bin/activate; ./manage.py runserver --werkzeug --traceback"
+alias runserver="cd ~/src/napa; sudo lunchy restart nginx; . env/bin/activate; ./manage.py runserver --werkzeug --traceback"
 alias s="cd ~/src/napa; . env/bin/activate; ./manage.py shell_plus"
 alias celeryd='cd ~/src/napa; lunchy restart rabbit; sleep 2; . env/bin/activate; PYTHONPATH="napa/apps:napa/config:napa/apps/django-js-utils:.:napa" celery worker -A napa.napa_celery_app --purge -c 2 -l INFO --autoreload --without-gossip --without-mingle --without-heartbeat'
 alias pyc="find . -name '__pycache__' -o -name '*.pyc' | xargs rm -rf"
-alias f="ag --py --ignore=env --ignore='*migration*' --ignore='*icomoon*'"
+alias f="ag --py --ignore=env --ignore='*migration*' --ignore='*icomoon*' --ignore=tests --ignore=factories"
 
