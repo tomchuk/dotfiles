@@ -116,6 +116,7 @@ if has("autocmd")
 endif
 
 let python_highlight_all = 1
+let python_version_2 = 1
 let g:flake8_show_in_gutter=1
 let g:flake8_show_in_file=1
 python from powerline.vim import setup as powerline_setup
