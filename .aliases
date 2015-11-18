@@ -146,3 +146,10 @@ alias celeryd='cd ~/src/napa; lunchy restart rabbit; sleep 2; . env/bin/activate
 alias pyc="find . -name '__pycache__' -o -name '*.pyc' | xargs rm -rf"
 alias f="ag --py --ignore=env --ignore='*migration*' --ignore='*icomoon*' --ignore=tests --ignore=factories"
 
+function ff() {
+    find . -iname "*$@*" | grep --color "$@"
+}
+
+function compile_templates() {
+  handlebars napa/$1/static/js/templates/*.handlebars -e .handlebars -a -f /src/napa/napa/$1/static/js/$1_handlebars_tpl.js
+  }

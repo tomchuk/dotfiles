@@ -2,7 +2,9 @@ execute pathogen#infect()
 " Use the Solarized Dark theme
 set t_Co=256
 set background=dark
-colorscheme desert256
+colorscheme material-theme
+
+" let g:base16_shell_path=base16-builder/output/shell/
 
 " Make Vim more useful
 set nocompatible
