@@ -152,4 +152,14 @@ function ff() {
 
 function compile_templates() {
   handlebars napa/$1/static/js/templates/*.handlebars -e .handlebars -a -f /src/napa/napa/$1/static/js/$1_handlebars_tpl.js
-  }
+}
+
+function rdstat() {
+    ssh -t $1 "hash dstat > /dev/null 2>&1 || sudo apt-get -y -qq install dstat > /dev/null 2>&1"
+    ssh -t $1 "dstat -c -C total -l -m -s -S total -d -D total -r -n -N total --tcp 2 30"
+}
+
+if type _ssh &> /dev/null && [ -f /usr/local/etc/bash_completion.d/ssh ]; then
+    complete -o default -o nospace -F _ssh rdstat
+fi;
+
