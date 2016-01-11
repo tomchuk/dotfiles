@@ -6,3 +6,5 @@ unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/help
 DEFAULT_USER='thomas'
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[4~" end-of-line
