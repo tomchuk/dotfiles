@@ -1,0 +1,14 @@
+# Some useful python packages
+virtualenv
+virtualenvwrapper
+pip
+requests # http stuff
+wrapt # decorators and monkey-patching
+q # debug prints
+flake8 # Linting
+boto # AWS
+tqdm # progress bars
+joblib # cacching and persistence
+dill # a better pickle
+tinydb # mini NoSQL 
+bokeh # graphing

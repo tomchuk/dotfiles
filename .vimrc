@@ -68,9 +68,9 @@ set title
 " Use spaces not tabs
 filetype plugin indent on
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set autoindent
 set showmatch
 set switchbuf=useopen
@@ -117,15 +117,21 @@ if has("autocmd")
     " autocmd FileType python compiler flake8
     " autocmd BufWritePost *.py call Flake8()
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    au FileType python setl sw=4 sts=4 ts=4
 endif
 
 let python_highlight_all = 1
 let python_version_2 = 1
 let g:flake8_show_in_gutter=1
 let g:flake8_show_in_file=1
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+python << EOF
+try:
+    from powerline.vim import setup as powerline_setup
+    powerline_setup()
+    del powerline_setup
+except ImportError:
+    pass
+EOF
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*

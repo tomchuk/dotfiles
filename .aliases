@@ -159,7 +159,62 @@ function rdstat() {
     ssh -t $1 "dstat -c -C total -l -m -s -S total -d -D total -r -n -N total --tcp 2 30"
 }
 
-if type _ssh &> /dev/null && [ -f /usr/local/etc/bash_completion.d/ssh ]; then
-    complete -o default -o nospace -F _ssh rdstat
-fi;
+function transcode() {
+    nice -n 12 \
+      ffmpeg \
+        -y \
+        -threads auto \
+        -i "$1" \
+        -strict experimental \
+        -s 1920x1080 \
+        -c:v libx264 \
+        -crf 20 \
+        -preset veryslow \
+        -profile:v high \
+        -level 4.0 \
+        -tune film \
+        -pix_fmt yuv420p \
+        -c:a aac \
+        -b:a 160k \
+        -f mp4 \
+        "$2"
+}
 
+function docker() {
+    pgrep -fq xhyve
+    if [ $? -ne 0 ]
+    then
+        echo 'Starting boot2docker'
+        PROG="sudo /usr/local/bin/xhyve"
+        AGV="-H -P -A"
+        MEM="-m4G"
+        CPU="-c4"
+        PCI="-s0:0,hostbridge -s31,lpc"
+        NET="-s2:0,virtio-net,en0"
+        BLK="-s4,virtio-blk,/usr/local/boot2docker-xhyve/boot2docker-data.img"
+        KRN="/usr/local/boot2docker-xhyve/vmlinuz64"
+        IRD="/usr/local/boot2docker-xhyve/initrd.img"
+        CMD="loglevel=0 user=docker console=ttyS0 console=tty0 \
+             noembed nomodeset norestore \
+             waitusb=10:LABEL=boot2docker-data \
+             console=ttyS0 console=tty0 \
+             base host=boot2docker"
+        OUT="&"
+        #OUT="</dev/null &>/dev/null &"
+
+        $PROG $AGV $MEM $CPU $PCI $NET $BLK -fkexec,$KRN,$IRD,"$CMD" $QUT
+        
+        #-H -P -A -m4G -c4 -s0:0,hostbridge -s31,lpc -s2:0,virtio-net -s4,virtio-blk,/usr/local/boot2docker-xhyve/boot2docker-data.img -Ubb60a7fd-2655-4927-88a6-fdd1e2223ddc -fkexec,/usr/local/boot2docker-xhyve/vmlinuz64,/usr/local/boot2docker-xhyve/initrd.img,"loglevel=0 user=docker console=ttyS0 console=tty0 noembed nomodeset norestore waitusb=10:LABEL=boot2docker-data base host=boot2docker" </dev/null &>/dev/null &
+        RUNNING=1
+        while true
+        do
+            nc -z -G 1 192.168.64.2 2375 && break
+            sleep 1
+        done
+        echo
+        export DOCKER_HOST=tcp://192.168.64.2:2375;
+        unset DOCKER_CERT_PATH;
+        unset DOCKER_TLS_VERIFY;
+    fi
+    /usr/local/bin/docker $*
+}
