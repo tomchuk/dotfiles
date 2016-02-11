@@ -1,5 +1,7 @@
 execute pathogen#infect()
 " Use the Solarized Dark theme
+set t_ZH=[3m
+set t_ZR=[23m
 set t_Co=256
 set background=dark
 colorscheme material-theme
@@ -77,13 +79,19 @@ set switchbuf=useopen
 set numberwidth=5
 set showtabline=2
 set t_ti= t_te=
-set colorcolumn=99
 set lazyredraw
 " Show the (partial) command as it’s being typed
 set showcmd
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 set history=10000
+
+" Highlight non-ascii chars and 99th col
+syntax match nonascii "[^\x00-\x7F]"
+highlight nonascii ctermbg=white ctermfg=black
+set colorcolumn=99
+highlight ColorColumn ctermbg=cyan ctermfg=black
+
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
@@ -118,6 +126,7 @@ if has("autocmd")
     " autocmd BufWritePost *.py call Flake8()
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
     au FileType python setl sw=4 sts=4 ts=4
+    au FileType make set noexpandtab shiftwidth=4 softtabstop=0
 endif
 
 let python_highlight_all = 1
@@ -146,3 +155,5 @@ let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_style_error_symbol = "⚑"
 let g:syntastic_style_warning_symbol = "⚑"
 " let g:syntastic_python_flake8_post_args='--ignore=E501,E125,E121,E502,E128,E129,E265,E226,E126,E221,E303,302,E271,E261,E127,E131,W291,E231,E262,E202,E302,W293,E203,W391'
+
+highlight Comment cterm=italic

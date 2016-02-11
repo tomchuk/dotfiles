@@ -145,6 +145,8 @@ alias s="cd ~/src/napa; . env/bin/activate; ./manage.py shell_plus"
 alias celeryd='cd ~/src/napa; lunchy restart rabbit; sleep 2; . env/bin/activate; PYTHONPATH="napa/apps:napa/config:napa/apps/django-js-utils:.:napa" celery worker -A napa.napa_celery_app --purge -c 2 -l INFO --autoreload --without-gossip --without-mingle --without-heartbeat'
 alias pyc="find . -name '__pycache__' -o -name '*.pyc' | xargs rm -rf"
 alias f="ag --py --ignore=env --ignore='*migration*' --ignore='*icomoon*' --ignore=tests --ignore=factories"
+alias pt="py.test -svx -rfE --tb=native"
+alias ptp="py.test -svx -rfE --tb=native --pdb"
 
 function ff() {
     find . -iname "*$@*" | grep --color "$@"
@@ -180,41 +182,3 @@ function transcode() {
         "$2"
 }
 
-function docker() {
-    pgrep -fq xhyve
-    if [ $? -ne 0 ]
-    then
-        echo 'Starting boot2docker'
-        PROG="sudo /usr/local/bin/xhyve"
-        AGV="-H -P -A"
-        MEM="-m4G"
-        CPU="-c4"
-        PCI="-s0:0,hostbridge -s31,lpc"
-        NET="-s2:0,virtio-net,en0"
-        BLK="-s4,virtio-blk,/usr/local/boot2docker-xhyve/boot2docker-data.img"
-        KRN="/usr/local/boot2docker-xhyve/vmlinuz64"
-        IRD="/usr/local/boot2docker-xhyve/initrd.img"
-        CMD="loglevel=0 user=docker console=ttyS0 console=tty0 \
-             noembed nomodeset norestore \
-             waitusb=10:LABEL=boot2docker-data \
-             console=ttyS0 console=tty0 \
-             base host=boot2docker"
-        OUT="&"
-        #OUT="</dev/null &>/dev/null &"
-
-        $PROG $AGV $MEM $CPU $PCI $NET $BLK -fkexec,$KRN,$IRD,"$CMD" $QUT
-        
-        #-H -P -A -m4G -c4 -s0:0,hostbridge -s31,lpc -s2:0,virtio-net -s4,virtio-blk,/usr/local/boot2docker-xhyve/boot2docker-data.img -Ubb60a7fd-2655-4927-88a6-fdd1e2223ddc -fkexec,/usr/local/boot2docker-xhyve/vmlinuz64,/usr/local/boot2docker-xhyve/initrd.img,"loglevel=0 user=docker console=ttyS0 console=tty0 noembed nomodeset norestore waitusb=10:LABEL=boot2docker-data base host=boot2docker" </dev/null &>/dev/null &
-        RUNNING=1
-        while true
-        do
-            nc -z -G 1 192.168.64.2 2375 && break
-            sleep 1
-        done
-        echo
-        export DOCKER_HOST=tcp://192.168.64.2:2375;
-        unset DOCKER_CERT_PATH;
-        unset DOCKER_TLS_VERIFY;
-    fi
-    /usr/local/bin/docker $*
-}
