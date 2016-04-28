@@ -91,6 +91,7 @@ syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii ctermbg=white ctermfg=black
 set colorcolumn=99
 highlight ColorColumn ctermbg=cyan ctermfg=black
+highlight Search cterm=bold ctermfg=white ctermbg=darkmagenta
 
 
 " Strip trailing whitespace (,ss)

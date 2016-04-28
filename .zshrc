@@ -8,7 +8,7 @@ export ZSH=/Users/thomas/.oh-my-zsh
 ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+CASE_SENSITIVE="false"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -27,7 +27,7 @@ export UPDATE_ZSH_DAYS=6
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="false"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -49,12 +49,17 @@ ZSH_CUSTOM=/Users/thomas/.zshcustom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(brew django emoji fabric git git-hubflow httpie jira osx pip pyenv python sublime sudo virtualenv zsh_reload tomchuk)
+plugins=(
+  brew brew-cask colorize colored-man-pages
+  django emoji fabric git git-hubflow httpie jira osx pip
+  python rsync sublime sudo virtualenv zsh_reload tomchuk
+)
 
 # User configuration
 
 export PATH="/Users/thomas/.local/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 source $ZSH/oh-my-zsh.sh
 
