@@ -8,7 +8,7 @@ export ZSH=/Users/thomas/.oh-my-zsh
 ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="false"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -57,7 +57,7 @@ plugins=(
 
 # User configuration
 
-export PATH="/Users/thomas/.local/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin"
+export PATH="/Users/thomas/.local/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 fpath=(/usr/local/share/zsh-completions $fpath)
 
@@ -73,7 +73,7 @@ export EDITOR="vim"
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/tomchuk.pem"
+export SSH_KEY_PATH="~/.ssh/id_rsa"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -83,3 +83,7 @@ export SSH_KEY_PATH="~/.ssh/tomchuk.pem"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export PYTHONDONTWRITEBYTECODE=1

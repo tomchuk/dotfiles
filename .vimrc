@@ -4,7 +4,8 @@ set t_ZH=[3m
 set t_ZR=[23m
 set t_Co=256
 set background=dark
-colorscheme material-theme
+"colorscheme material-theme
+color dracula
 
 " let g:base16_shell_path=base16-builder/output/shell/
 
@@ -90,8 +91,9 @@ set history=10000
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii ctermbg=white ctermfg=black
 set colorcolumn=99
-highlight ColorColumn ctermbg=cyan ctermfg=black
-highlight Search cterm=bold ctermfg=white ctermbg=darkmagenta
+"highlight ColorColumn ctermbg=cyan ctermfg=black
+highlight Search ctermfg=black ctermbg=yellow
+"highlight StatusLine ctermfg=black
 
 
 " Strip trailing whitespace (,ss)
@@ -155,6 +157,6 @@ let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_style_error_symbol = "⚑"
 let g:syntastic_style_warning_symbol = "⚑"
-" let g:syntastic_python_flake8_post_args='--ignore=E501,E125,E121,E502,E128,E129,E265,E226,E126,E221,E303,302,E271,E261,E127,E131,W291,E231,E262,E202,E302,W293,E203,W391'
+let g:syntastic_python_flake8_post_args='--ignore=E501,E125,E121,E502,E128,E129,E265,E226,E126,E221,E303,302,E271,E261,E127,E131,W291,E231,E262,E202,E302,W293,E203,W391,E116'
 
 highlight Comment cterm=italic
