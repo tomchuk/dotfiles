@@ -18,9 +18,6 @@ if empty(glob(config_dir . '/autoload/plug.vim'))
 endif
 call plug#begin(config_dir . '/plugged')
 " Colors/themes
-Plug 'jzelinskie/monokai-soda.vim'
-Plug 'fneu/breezy'
-Plug 'davidklsn/vim-sialoquent'
 Plug 'KeitaNakamura/neodark.vim'
 " Global
 Plug 'bogado/file-line'
@@ -118,6 +115,9 @@ nmap <silent> <leader>o :TagbarToggle<CR>
 " toggle paste and wrap
 nmap <silent> <leader>p :set invpaste<CR>:set paste?<CR>
 nmap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
+nmap <silent> <leader>n :set invnumber<CR>:set number?<CR>
+nmap <silent> <leader>s :sign unplace *<CR>
+nmap <silent> <leader>h :set nonumber<CR>:sign unplace *<CR>
 
 " productive arrow keys
 "nmap <Up> [e
@@ -148,38 +148,54 @@ if system('par')
   let &formatprg=par\ -w80
 endif
 
-" clear hlsearch on redraw
+" clear hlsearch on enter
 nnoremap <CR> :nohlsearch<CR><CR>
 
+" Save as root
+nnoremap <leader>W :w !sudo tee % > /dev/null<CR>
+
 " vim settings
-set termguicolors
+set binary
 set colorcolumn=80,100
 set cursorline
 set completeopt-=preview
 set cpoptions=ces$
+set encoding=utf-8 nobomb
 set ffs=unix,dos
 set fillchars=vert:·
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 set guioptions-=T
 set guioptions-=m
 set hidden
+set history=10000
 set hlsearch
 set ignorecase
 set incsearch
 set lazyredraw
+set modeline
+set modelines=4
 set noerrorbells
 set noshowmode
+set nostartofline
 set noswapfile
 set nonumber
+set ruler
+set scrolloff=3
 set shellslash
+set shortmess+=atI
 set showfulltag
 set showmatch
 set showmode
 set smartcase
 set synmaxcol=2048
 set t_Co=256
+set t_ZH=[3m
+set t_ZR=[23m
+set termguicolors
 set title
 set ts=2 sts=2 sw=2 et ci
 set ttyfast
 set visualbell
+set wildmenu
+set wrap
 set wrapscan
