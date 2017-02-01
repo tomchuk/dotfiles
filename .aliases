@@ -152,8 +152,8 @@ alias q="tail -f $TMPDIR/q"
 alias bsb='cd ~/src/bs && npm run build && workon bs && cd project && ./manage.py collectstatic --noinput'
 alias bs='DJANGO_SETTINGS_MODULE=cd ~/src/bs; workon bs'
 alias s="cd ~/src/bs/project; workon bs; ./manage.py shell_plus"
-alias runserver="sudo lunchy stop nginx; sudo lunchy start nginx; cd ~/src/bs/project; workon bs; ./manage.py runserver_plus --traceback"
-alias celeryd='cd ~/src/bs; lunchy restart rabbit; sleep 2; workon bs; celery worker -A celery_worker --purge -c 2 -l INFO --autoreload --without-gossip --without-mingle --without-heartbeat'
+alias runserver="sudo lunchy stop nginx; sudo lunchy start nginx; workon bs; cd ~/src/bs; ./project/manage.py runserver_plus --traceback"
+alias celeryd='cd ~/src/bs/project; lunchy restart rabbit; sleep 2; workon bs; celery worker -A celery_worker --purge -c 2 -l INFO --autoreload --without-gossip --without-mingle --without-heartbeat'
 
 alias stops="sudo lunchy stop nginx; lunchy stop mysql; lunchy stop mongo; lunchy stop elastic; lunchy stop rabbit; lunchy stop redis"
 alias starts="sudo lunchy start nginx; lunchy start mysql; lunchy start mongo; lunchy start elastic; lunchy start rabbit; lunchy start redis"

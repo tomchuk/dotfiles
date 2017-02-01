@@ -149,14 +149,16 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_style_error_symbol = "⚑"
 let g:syntastic_style_warning_symbol = "⚑"
-let g:syntastic_python_flake8_post_args='--ignore=E501,E125,E121,E502,E128,E129,E265,E226,E126,E221,E303,302,E271,E261,E127,E131,W291,E231,E262,E202,E302,W293,E203,W391,E116'
-
+let g:syntastic_python_flake8_post_args='--ignore=E501,E121'
+" let g:syntastic_python_flake8_post_args='--ignore=E501,E125,E121,E502,E128,E129,E265,E226,E126,E221,E303,302,E271,E261,E127,E131,W291,E231,E262,E202,E302,W293,E203,W391,E116,E301,E201,E251'
+" let g:syntastic_python_flake8_post_args='--select=F403,F811,F812,F821,F822,F823,F831,F841,E901,E902'
 highlight Comment cterm=italic

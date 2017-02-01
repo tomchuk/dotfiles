@@ -131,17 +131,12 @@ prompt_git() {
 prompt_hg() {
   local branch PL_BRANCH_CHAR
   PL_BRANCH_CHAR=$'\ue0a0'
-  branch=("${(@s: :)$(hg id -Bb 2>/dev/null)}")
+  branch=$(hg prompt 2> /dev/null)
   if [[ ! -z $branch ]]; then
       if [[ ! -z `hg st` ]]; then
         prompt_segment yellow black
       else
         prompt_segment green black
-      fi
-      if [[ $#branch -gt 1 ]]; then
-        branch=$branch[2]
-      else
-        branch=$branch[1]
       fi
       echo -n "$PL_BRANCH_CHAR $branch"
   fi

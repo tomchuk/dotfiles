@@ -1,0 +1,55 @@
+[ui]
+username = Thomas Achtemichuk <tom@tomchuk.com>
+merge = internal:merge
+# merge = Kaleidoscope
+editor = vim
+
+[merge-tools]
+Kaleidoscope.executable = /usr/local/bin/ksdiff
+Kaleidoscope.args = --merge --output $output --base $base -- $local $other
+
+[extdiff]
+cmd.ksdiff = /usr/local/bin/ksdiff
+opts.ksdiff = --changeset --wait --filelist
+
+[extensions]
+hgext.extdiff =
+strip = 
+mq = 
+extdiff =
+histedit =
+rebase = 
+fsmonitor =
+color = 
+progress =
+journal =
+prompt = ~/.hgprompt.py
+
+[color]
+status.modified = blue bold underline red_background
+status.added = green bold
+status.removed = red bold blue_background
+status.deleted = cyan bold underline
+status.unknown = magenta bold underline
+status.ignored = black bold
+
+[fsmonitor]
+mode = on
+
+[diff]
+git = 1
+unified = 8
+showfunc = 1
+
+[defaults]
+commit = -v
+qnew = -U
+
+[alias]
+s = !$HG sum && $HG status
+l = log -l8
+d = diff
+blame = annotate --user --number
+kd = !$HG ksdiff $@
+ks = !$HG ksdiff -c $@
+lg = log -G --template "{label('custom.rev',node|short)} - {if(bookmarks,'(')}{label('custom.bm',bookmarks)}{if(bookmarks,') ')}{desc|firstline} ({label('custom.date',date|age)}) <{label('custom.author',author|person)}>" -b .
