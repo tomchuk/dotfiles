@@ -105,8 +105,8 @@ let g:pymode_syntax_all = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_sign_column_always = 1
-let g:ale_python_flake8_args = '--ignore=E501,E121'
+let g:ale_sign_column_always = 0
+let g:ale_python_flake8_args = '--ignore=E501,E121,E128'
 " let g:ale_python_flake8_args = '--ignore=E501,E125,E121,E502,E128,E129,E265,E226,E126,E221,E303,302,E271,E261,E127,E131,W291,E231,E262,E202,E302,W293,E203,W391,E116,E301,E201,E251'
 
 " tags
@@ -116,8 +116,9 @@ nmap <silent> <leader>o :TagbarToggle<CR>
 nmap <silent> <leader>p :set invpaste<CR>:set paste?<CR>
 nmap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
 nmap <silent> <leader>n :set invnumber<CR>:set number?<CR>
+nmap <silent> <leader>r :set invrelativenumber<CR>:set relativenumber?<CR>
 nmap <silent> <leader>s :sign unplace *<CR>
-nmap <silent> <leader>h :set nonumber<CR>:sign unplace *<CR>
+nmap <silent> <leader>h :set nonumber<CR>:set norelativenumber<CR>:sign unplace *<CR>
 
 " productive arrow keys
 "nmap <Up> [e
@@ -178,7 +179,8 @@ set noerrorbells
 set noshowmode
 set nostartofline
 set noswapfile
-set nonumber
+set number
+set relativenumber
 set ruler
 set scrolloff=3
 set shellslash
