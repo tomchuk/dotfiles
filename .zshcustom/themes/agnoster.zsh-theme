@@ -131,14 +131,15 @@ prompt_git() {
 prompt_hg() {
   local branch PL_BRANCH_CHAR
   PL_BRANCH_CHAR=$'\ue0a0'
-  branch=$(hg prompt 2> /dev/null)
-  if [[ ! -z $branch ]]; then
-      if [[ ! -z `hg st` ]]; then
+  parts=$(python ~/.hgprompt.py 2> /dev/null)
+  a=("${(f)parts}")
+  if [[ ! -z $parts ]]; then
+      if [[ $a[2] = 'True' ]]; then
         prompt_segment yellow black
       else
         prompt_segment green black
       fi
-      echo -n "$PL_BRANCH_CHAR $branch"
+      echo -n "$PL_BRANCH_CHAR $a[1]"
   fi
 }
 

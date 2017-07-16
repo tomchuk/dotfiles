@@ -145,18 +145,18 @@ alias ss="cd ~/src/napa; . env/bin/activate; ./manage.py shell_plus"
 alias sceleryd='cd ~/src/napa; lunchy restart rabbit; sleep 2; . env/bin/activate; PYTHONPATH="napa/apps:napa/config:napa/apps/django-js-utils:.:napa" celery worker -A napa.napa_celery_app --purge -c 2 -l INFO --autoreload --without-gossip --without-mingle --without-heartbeat'
 alias pyc="find . -name '__pycache__' -o -name '*.pyc' | xargs rm -rf"
 alias f="ag --py --ignore='*migration*'"
-alias pt="py.test -svx -rfE --tb=native"
-alias ptp="py.test -svx -rfE --tb=native --pdb"
+alias pt="py.test -svvx -rfE --tb=native"
+alias ptp="py.test -svvx -rfE --tb=native --pdb"
 alias q="tail -f $TMPDIR/q"
 
 alias bsb='cd ~/src/bs && npm run build && workon bs && cd project && ./manage.py collectstatic --noinput'
 alias bs='DJANGO_SETTINGS_MODULE=cd ~/src/bs; workon bs'
-alias s="cd ~/src/bs/project; workon bs; ./manage.py shell_plus"
+alias s="cd ~/src/bs/; workon bs; ./project/manage.py shell_plus"
 alias runserver="sudo lunchy stop nginx; sudo lunchy start nginx; workon bs; cd ~/src/bs; ./project/manage.py runserver_plus --traceback"
 alias celeryd='cd ~/src/bs/project; lunchy restart rabbit; sleep 2; workon bs; celery worker -A celery_worker --purge -c 2 -l INFO --autoreload --without-gossip --without-mingle --without-heartbeat'
 
-alias stops="sudo lunchy stop nginx; lunchy stop mysql; lunchy stop mongo; lunchy stop elastic; lunchy stop rabbit; lunchy stop redis"
-alias starts="sudo lunchy start nginx; lunchy start mysql; lunchy start mongo; lunchy start elastic; lunchy start rabbit; lunchy start redis"
+alias stops="sudo lunchy stop nginx; lunchy stop mysql; lunchy stop mongo; lunchy stop elastic; lunchy stop rabbit; lunchy stop redis; lunchy stop neo4j; lunchy stop postgres"
+alias starts="sudo lunchy start nginx; lunchy start mysql; lunchy start mongo; lunchy start elastic; lunchy start rabbit; lunchy start redis; lunchy start neo4j; lunchy start postgres"
 
 function ff() {
     find . -iname "*$@*" | grep --color "$@"

@@ -49,6 +49,7 @@ Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'tpope/vim-git', { 'for': 'git' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'leafo/moonscript-vim', { 'for': 'moon' }
 call plug#end()
 
 " interface

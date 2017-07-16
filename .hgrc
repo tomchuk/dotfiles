@@ -3,6 +3,7 @@ username = Thomas Achtemichuk <tom@tomchuk.com>
 merge = internal:merge
 # merge = Kaleidoscope
 editor = vim
+paginate = never
 
 [merge-tools]
 Kaleidoscope.executable = /usr/local/bin/ksdiff
@@ -14,16 +15,15 @@ opts.ksdiff = --changeset --wait --filelist
 
 [extensions]
 hgext.extdiff =
-strip = 
-mq = 
+strip =
+mq =
 extdiff =
 histedit =
-rebase = 
+rebase =
 fsmonitor =
-color = 
+color =
 progress =
 journal =
-prompt = ~/.hgprompt.py
 
 [color]
 status.modified = blue bold underline red_background
@@ -47,9 +47,10 @@ qnew = -U
 
 [alias]
 s = !$HG sum && $HG status
-l = log -l8
+l = log -M --removed --user "Thomas Achtemichuk" --template "{date|shortdate} {if(bookmark, '{bookmarks}', '{branches}')} {desc|firstline}\n"
 d = diff
-blame = annotate --user --number
+cut = !$HG bo -r current BKSTG-$@ && $HG up BKSTG-$@
+blame = annotate --user --changeset
 kd = !$HG ksdiff $@
 ks = !$HG ksdiff -c $@
-lg = log -G --template "{label('custom.rev',node|short)} - {if(bookmarks,'(')}{label('custom.bm',bookmarks)}{if(bookmarks,') ')}{desc|firstline} ({label('custom.date',date|age)}) <{label('custom.author',author|person)}>" -b .
+lg = log -M --removed --template "{label('custom.rev',node|short)} - {if(bookmarks,'(')}{label('custom.bm',bookmarks)}{if(bookmarks,') ')}{desc|firstline} ({label('custom.date',date|age)}) <{label('custom.author',author|person)}>\n"

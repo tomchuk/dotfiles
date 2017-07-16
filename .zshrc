@@ -51,7 +51,7 @@ ZSH_CUSTOM=/Users/thomas/.zshcustom
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   brew brew-cask colorize colored-man-pages
-  django emoji fabric git git-hubflow httpie jira osx pip
+  django emoji fabric git git-hubflow httpie osx pip
   python rsync sublime sudo virtualenv zsh_reload tomchuk
 )
 
