@@ -194,7 +194,9 @@ set synmaxcol=2048
 set t_Co=256
 set t_ZH=[3m
 set t_ZR=[23m
-set termguicolors
+if has('termguicolors')
+  set termguicolors
+endif
 set title
 set ts=2 sts=2 sw=2 et ci
 set ttyfast
