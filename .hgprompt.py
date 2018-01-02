@@ -26,7 +26,7 @@ def dirty():
     try:
         sf = open(os.path.join(get_hg(), 'fsmonitor.state'), 'rb')
         sf.seek(4)
-        return bool(sf.read().split('\0')[3:-1])
+        return bool(sf.read().decode('utf-8').split('\0')[3:-1])
     except:
         return False
     finally:

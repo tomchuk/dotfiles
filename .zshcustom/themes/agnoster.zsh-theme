@@ -29,6 +29,7 @@
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
 CURRENT_BG='NONE'
+MODE_INDICATOR="%{$fg_bold[red]%}⚠︎%{$reset_color%}"
 
 # Special Powerline characters
 
@@ -73,6 +74,7 @@ prompt_end() {
   echo -n "%{%f%}"
   CURRENT_BG=''
 }
+
 
 ### Prompt components
 # Each component will draw itself, and hide itself if no information needs to be shown

@@ -52,3 +52,5 @@ test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_i
 
 BASE16_SHELL="$HOME/.config/base16-shell/base16-material.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+export NRUSER="Thomas Achtemichuk"

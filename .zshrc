@@ -52,7 +52,8 @@ ZSH_CUSTOM=/Users/thomas/.zshcustom
 plugins=(
   brew brew-cask colorize colored-man-pages
   django emoji fabric git git-hubflow httpie osx pip
-  python rsync sublime sudo virtualenv zsh_reload tomchuk
+  python rsync sublime sudo virtualenv zsh_reload
+  tomchuk
 )
 
 # User configuration
@@ -85,5 +86,3 @@ export SSH_KEY_PATH="~/.ssh/id_rsa"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-export PYTHONDONTWRITEBYTECODE=1

@@ -20,10 +20,12 @@ mq =
 extdiff =
 histedit =
 rebase =
+#evolve =
 fsmonitor =
 color =
 progress =
 journal =
+prompt = ~/.hg_prompt.py
 
 [color]
 status.modified = blue bold underline red_background
@@ -33,8 +35,15 @@ status.deleted = cyan bold underline
 status.unknown = magenta bold underline
 status.ignored = black bold
 
+[commands]
+status.relative = true
+
 [fsmonitor]
 mode = on
+
+[hooks]
+#pretxncommit.shrinkwrap = test -z "$(hg status -m "$(hg root)/npm-shrinkwrap.json")"
+# pretxncommit.lint = FILES=$(hg status -n -I '**/*.py'); if [ ! -z "$FILES" ]; then flake8 $FILES; fi;
 
 [diff]
 git = 1
@@ -46,11 +55,11 @@ commit = -v
 qnew = -U
 
 [alias]
-s = !$HG sum && $HG status
+s = !$HG sum && $HG status && $HG resolve -l
 l = log -M --removed --user "Thomas Achtemichuk" --template "{date|shortdate} {if(bookmark, '{bookmarks}', '{branches}')} {desc|firstline}\n"
 d = diff
 cut = !$HG bo -r current BKSTG-$@ && $HG up BKSTG-$@
-blame = annotate --user --changeset
+blame = annotate -d -u -q -c
 kd = !$HG ksdiff $@
 ks = !$HG ksdiff -c $@
 lg = log -M --removed --template "{label('custom.rev',node|short)} - {if(bookmarks,'(')}{label('custom.bm',bookmarks)}{if(bookmarks,') ')}{desc|firstline} ({label('custom.date',date|age)}) <{label('custom.author',author|person)}>\n"
