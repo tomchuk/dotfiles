@@ -2,12 +2,15 @@
 username = Thomas Achtemichuk <tom@tomchuk.com>
 merge = internal:merge
 # merge = Kaleidoscope
+merge = vimdiff
 editor = vim
 paginate = never
 
 [merge-tools]
 Kaleidoscope.executable = /usr/local/bin/ksdiff
 Kaleidoscope.args = --merge --output $output --base $base -- $local $other
+vimdiff.executable = vim
+vimdiff.args = -f -d -c "wincmd J" "$output" "$local" "$base" "$other"
 
 [extdiff]
 cmd.ksdiff = /usr/local/bin/ksdiff
@@ -25,6 +28,7 @@ fsmonitor =
 color =
 progress =
 journal =
+shelve =
 prompt = ~/.hg_prompt.py
 
 [color]

@@ -6,9 +6,9 @@ requests # http stuff
 wrapt # decorators and monkey-patching
 q # debug prints
 flake8 # Linting
-boto # AWS
+boto3 # AWS
 tqdm # progress bars
 joblib # cacching and persistence
 dill # a better pickle
-tinydb # mini NoSQL 
+tinydb # mini NoSQL
 bokeh # graphing
