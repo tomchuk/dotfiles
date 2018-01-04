@@ -128,6 +128,9 @@ noremap l h
 noremap ; l
 noremap h ;
 
+noremap <C-J> <C-D>
+noremap <C-K> <C-U>
+
 " strip trailing whitespace on save
 function! <SID>StripTrailingWhitespaces()
   " preparation: save last search, and cursor position.
