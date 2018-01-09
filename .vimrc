@@ -124,10 +124,11 @@ nmap <silent> <leader>h :set nonumber<CR>:set norelativenumber<CR>:sign unplace 
 " better home-row movements
 " down |  up  | left | right
 "  j   |  k   |  l   |  ;
-noremap l h
-noremap ; l
-noremap h ;
+" noremap l h
+" noremap ; l
+" noremap h ;
 
+" Move half page with Ctrl+J/K
 noremap <C-J> <C-D>
 noremap <C-K> <C-U>
 
