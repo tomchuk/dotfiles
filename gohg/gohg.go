@@ -40,24 +40,35 @@ func book() string {
 	return strings.TrimSpace(string(bm))
 }
 
+func topic() string {
+	tp, err := ioutil.ReadFile(filepath.Join(root(), "topic"))
+	check(err)
+	return strings.TrimSpace(string(tp))
+}
+
 func branch() string {
 	br, err := ioutil.ReadFile(filepath.Join(root(), "branch"))
 	check(err)
 	return strings.TrimSpace(string(br))
 }
 
-func bookOrBranch() string {
-	b, err := ioutil.ReadFile(filepath.Join(root(), "bookmarks.current"))
-	if err == nil {
-		return strings.TrimSpace(string(b))
-	} else {
-		b, err = ioutil.ReadFile(filepath.Join(root(), "branch"))
-		if err == nil {
-			return strings.TrimSpace(string(b))
-		}
-	}
-	log.Fatal("No bookmark or branch found")
-	return ""
+func where() string {
+  b, err := ioutil.ReadFile(filepath.Join(root(), "topic"))
+  if err == nil && len(b) > 0 {
+    return "✪ " + strings.TrimSpace(string(b))
+  } else {
+    b, err = ioutil.ReadFile(filepath.Join(root(), "bookmarks.current"))
+    if err == nil {
+      return "➘ " + strings.TrimSpace(string(b))
+    } else {
+      b, err = ioutil.ReadFile(filepath.Join(root(), "branch"))
+      if err == nil {
+        return " " + strings.TrimSpace(string(b))
+      }
+    }
+  }
+  log.Fatal("No topic, bookmark or branch found")
+  return ""
 }
 
 func dirty() bool {
@@ -82,12 +93,14 @@ func main() {
 		fmt.Print(book())
 	case "branch":
 		fmt.Print(branch())
-	case "book_or_branch":
-		fmt.Print(bookOrBranch())
+	case "topic":
+	  fmt.Print(topic())
+	case "where":
+		fmt.Print(where())
 	case "dirty":
 		fmt.Printf("%t", dirty())
 	case "prompt":
-		fmt.Printf("%s %t", bookOrBranch(), dirty())
+		fmt.Printf("%s %t", where(), dirty())
 	default:
 		log.Fatal("Unrecognized command: " + arg)
 	}

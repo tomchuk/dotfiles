@@ -14,6 +14,10 @@ endif
 call plug#begin('~/.vim/plugged')
 " Colors/themes
 Plug 'KeitaNakamura/neodark.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ajh17/Spacegray.vim'
+Plug 'morhetz/gruvbox'
 " Global
 Plug 'bogado/file-line'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -25,32 +29,38 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/a.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-sensible'
 Plug 'dietsche/vim-lastplace'
 Plug 'fgsch/vim-varnish'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'jaxbot/semantic-highlight.vim'
 " Languages
 
-Plug 'vim-scripts/applescript.vim', { 'for': 'applescript' }
-Plug 'python-mode/python-mode', { 'for': 'python' }
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'ekalinin/Dockerfile.vim', { 'for': 'dockerfile' }
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'chr4/nginx.vim', { 'for': 'nginx' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'oscarh/vimerl', { 'for': 'erlang' }
-Plug 'othree/html5.vim', { 'for': 'html' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'tpope/vim-git', { 'for': 'git' }
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'sheerun/vim-polyglot'
 Plug 'leafo/moonscript-vim', { 'for': 'moon' }
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 call plug#end()
 
 " interface
-colorscheme neodark
+set background=dark
+let g:gruvbox_italic = 1
+colorscheme gruvbox
+let g:solarized_termcolors = 256
+let g:solarized_termtrans = 0
+let g:solarized_degrade = 0
+let g:solarized_bold = 1
+let g:solarized_italic = 1
+let g:solarized_contrast = "normal"
+let g:solarized_visibility = "normal"
+let g:spacegray_underline_search = 0
+let g:spacegray_use_italics = 1
+let g:spacegray_low_contrast = 1
+" let g:semanticGUIColors = ['#b58900', '#cb4b16', '#dc322f', '#d33682', '#6c71c4', '#268bd2', '#2aa198', '#859900']
+let g:semanticGUIColors = ['#928374', '#9d0006', '#79740e', '#b57614', '#076678', '#8f3f71', '#427b58', '#af3a03']
+highlight Normal ctermbg=none
+highlight Visual ctermbg=black
 highlight Comment cterm=italic
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii ctermbg=white ctermfg=black
@@ -70,45 +80,21 @@ if has("unix")
   let g:ctrlp_user_command = "find %s -path '*.git*' -prune -o -type f"
 endif
 
-" airline
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline_theme = 'monochrome'
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-  let g:airline_symbols.maxlinenr = ''
-endif
 
 " python
 autocmd FileType python set ts=4 sw=4 et
-let g:pymode = 1
-let g:pymode_warnings = 0
-let g:pymode_trim_whitespaces = 1
-let g:pymode_options = 1
-let g:pymode_options_max_line_length = 100
-let g:pymode_indent = 1
-let g:pymode_folding = 0
-let g:pymode_motion = 1
-let g:pymode_virtualenv = 1
-let g:pymode_run = 0
-let g:pymode_breakpoint = 1
-let g:pymode_lint = 0
-let g:pymode_rope = 0
-let g:pymode_run = 0
-let g:pymode_syntax = 1
-let g:pymode_syntax_slow_sync = 1
-let g:pymode_syntax_all = 1
-let g:pymode_python = 'python3'
+let g:python_highlight_class_vars = 1
+let g:python_highlight_all = 1
+let g:python_pep8_indent_multiline_string = -2
 
 " Ale
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_sign_column_always = 0
-let g:ale_python_flake8_args = '--ignore=E501,E121,E128'
+let g:ale_python_flake8_options = '--ignore=E501,E121,E128'
 let g:ale_python_mypy_options = '--python-version=3.6 --warn-unused-ignores --warn-unused-configs --follow-imports=silent –-ignore-missing-imports --incremental --disallow-any-explicit --disallow-subclassing-any --warn-return-any --disallow-any-expr'
-" let g:ale_python_flake8_args = '--ignore=E501,E125,E121,E502,E128,E129,E265,E226,E126,E221,E303,302,E271,E261,E127,E131,W291,E231,E262,E202,E302,W293,E203,W391,E116,E301,E201,E251'
+" let g:ale_python_flake8_options = '--ignore=E501,E125,E121,E502,E128,E129,E265,E226,E126,E221,E303,302,E271,E261,E127,E131,W291,E231,E262,E202,E302,W293,E203,W391,E116,E301,E201,E251'
 
 " tags
 nmap <silent> <leader>o :TagbarToggle<CR>
@@ -116,9 +102,9 @@ nmap <silent> <leader>o :TagbarToggle<CR>
 " toggle paste and wrap
 nmap <silent> <leader>p :set invpaste<CR>:set paste?<CR>
 nmap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
-nmap <silent> <leader>n :set invnumber<CR>:set number?<CR>
+nmap <silent> <leader>n :set invnumber<CR>:set number?<CR>:set invrelativenumber<CR>:set relativenumber?<CR>
 nmap <silent> <leader>r :set invrelativenumber<CR>:set relativenumber?<CR>
-nmap <silent> <leader>s :sign unplace *<CR>
+nmap <silent> <leader>s :SemanticHighlightToggle<CR>
 nmap <silent> <leader>h :set nonumber<CR>:set norelativenumber<CR>:sign unplace *<CR>
 
 " better home-row movements
@@ -198,9 +184,9 @@ set synmaxcol=2048
 set t_Co=256
 set t_ZH=[3m
 set t_ZR=[23m
-if has('termguicolors')
-  set termguicolors
-endif
+"if has('termguicolors')
+"  set termguicolors
+"endif
 set title
 set ts=2 sts=2 sw=2 et ci
 set ttyfast

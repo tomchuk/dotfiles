@@ -2,9 +2,10 @@
 username = Thomas Achtemichuk <tom@tomchuk.com>
 merge = internal:merge
 # merge = Kaleidoscope
-merge = vimdiff
+# merge = vimdiff
 editor = vim
 paginate = never
+interface = curses
 
 [merge-tools]
 Kaleidoscope.executable = /usr/local/bin/ksdiff
@@ -16,6 +17,9 @@ vimdiff.args = -f -d -c "wincmd J" "$output" "$local" "$base" "$other"
 cmd.ksdiff = /usr/local/bin/ksdiff
 opts.ksdiff = --changeset --wait --filelist
 
+[phases]
+publish = False
+
 [extensions]
 hgext.extdiff =
 strip =
@@ -23,7 +27,9 @@ mq =
 extdiff =
 histedit =
 rebase =
-#evolve =
+evolve =
+topic =
+record =
 fsmonitor =
 color =
 progress =
@@ -32,12 +38,12 @@ shelve =
 prompt = ~/.hg_prompt.py
 
 [color]
-status.modified = blue bold underline red_background
+status.modified = blue bold
 status.added = green bold
-status.removed = red bold blue_background
-status.deleted = cyan bold underline
-status.unknown = magenta bold underline
-status.ignored = black bold
+status.removed = red bold
+status.deleted = red bold
+status.unknown = magenta bold
+status.ignored = white
 
 [commands]
 status.relative = true
@@ -59,10 +65,12 @@ commit = -v
 qnew = -U
 
 [alias]
-s = !$HG sum && $HG status && $HG resolve -l
+s = !$HG sum; $HG status; $HG resolve -l; $HG stack --color=always | head -n12
+ss = !$HG stack --color=always | head -n85
 l = log -M --removed --user "Thomas Achtemichuk" --template "{date|shortdate} {if(bookmark, '{bookmarks}', '{branches}')} {desc|firstline}\n"
+lt = log -r "topic(.)"
 d = diff
-cut = !$HG bo -r current BKSTG-$@ && $HG up BKSTG-$@
+cut = !$HG up default && $HG topics BKSTG-$@
 blame = annotate -d -u -q -c
 kd = !$HG ksdiff $@
 ks = !$HG ksdiff -c $@
