@@ -1,5 +1,4 @@
 # Some useful python packages
-virtualenv
 virtualenvwrapper
 pip
 requests # http stuff
@@ -8,7 +7,7 @@ q # debug prints
 flake8 # Linting
 boto3 # AWS
 tqdm # progress bars
-joblib # cacching and persistence
+joblib # parallelism
 dill # a better pickle
 tinydb # mini NoSQL
 bokeh # graphing
