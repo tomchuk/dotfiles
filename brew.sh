@@ -17,6 +17,7 @@ brew install coreutils moreutils findutils dark-mode speedtest_cli
 brew install gnu-sed --with-default-names
 brew install libpng libtiff libxml2 libjpeg wget tree htop gnupg
 brew install awscli curl git git-lfs gpg-agent mas node the_silver_searcher watchman
+brew cask install java8
 brew install python mercurial git nginx rabbitmq mysql@5.7 redis elasticsearch@1.3
 
 brew cask install appcleaner transmit vlc shimo little-snitch micro-snitch keybase paw handbrake
