@@ -1,10 +1,29 @@
+mkdir ~/src
+cd ~/src
+git clone https://github.com/tomchuk/dotfiles
+cd dotfiles
+git submodule init
+git submodule update
+cd prezto
+git submodule init
+git submodule update
+cd ~
+shopt -s dotglob
+for file in src/dotfiles/.*; do
+  ln -s $file .
+done
+rm .git
+for file in src/dotfiles/prezto/runcoms/*; do
+  ln -s $file ".`basname $file`"
+done
+ln -s src/dotfiles/preztto .zprezto
+
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-brew updateq
 
 # thomas ALL=(ALL) NOPASSWD: ALL /etc/sudoers
 
-
+brew tap homebrew/cask-versions
 brew cask install iterm2-nightly
 brew install zsh zsh-completions
 brew install vim --with-override-system-vi
@@ -18,11 +37,12 @@ brew install gnu-sed --with-default-names
 brew install libpng libtiff libxml2 libjpeg wget tree htop gnupg
 brew install awscli curl git git-lfs gpg-agent mas node the_silver_searcher watchman
 brew cask install java8
-brew install python mercurial git nginx rabbitmq mysql@5.7 redis elasticsearch@1.3
+brew install python mercurial git nginx rabbitmq mysql@5.7 redis elasticsearch@1.3 yarn
 
 brew cask install appcleaner transmit vlc shimo little-snitch micro-snitch keybase paw handbrake
-brew cask install bee backblaze bartender homebrew/cask-versions/firefox-developer-edition steam
+brew cask install bee backblaze bartender firefox-developer-edition steam dash intel-power-gadget
 brew cask install google-chrome intensify-pro kaleidoscope muzzle tableplus transmission-nightly
+brew cask install timer geekbench macs-fan-control
 
 pip2 install hg-evolve
 pip3 install flake8
@@ -57,4 +77,5 @@ mas install 803453959  #  Slack
 mas install 980406518  #  iPull
 mas install 1262957439 #  Textual 7
 mas install 576338668  #  Leaf
-
+mas install 425264550  #  Blackmagic Disk Speed Test
+mas install 413535631  #  SignalScope Pro

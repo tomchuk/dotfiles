@@ -25,7 +25,7 @@ func root() string {
 		hgdir := filepath.Join(dir, ".hg")
 		stat, err := os.Stat(hgdir)
 		if err == nil && stat.IsDir() {
-			return hgdir
+			return dir
 		}
 		dir, err = filepath.Abs(filepath.Join(dir, ".."))
 		check(err)
@@ -35,33 +35,33 @@ func root() string {
 }
 
 func book() string {
-	bm, err := ioutil.ReadFile(filepath.Join(root(), "bookmarks.current"))
+	bm, err := ioutil.ReadFile(filepath.Join(root(), ".hg/bookmarks.current"))
 	check(err)
 	return strings.TrimSpace(string(bm))
 }
 
 func topic() string {
-	tp, err := ioutil.ReadFile(filepath.Join(root(), "topic"))
+	tp, err := ioutil.ReadFile(filepath.Join(root(), ".hg/topic"))
 	check(err)
 	return strings.TrimSpace(string(tp))
 }
 
 func branch() string {
-	br, err := ioutil.ReadFile(filepath.Join(root(), "branch"))
+	br, err := ioutil.ReadFile(filepath.Join(root(), ".hg/branch"))
 	check(err)
 	return strings.TrimSpace(string(br))
 }
 
 func where() string {
-  b, err := ioutil.ReadFile(filepath.Join(root(), "topic"))
+  b, err := ioutil.ReadFile(filepath.Join(root(), ".hg/topic"))
   if err == nil && len(b) > 0 {
     return "✪ " + strings.TrimSpace(string(b))
   } else {
-    b, err = ioutil.ReadFile(filepath.Join(root(), "bookmarks.current"))
+    b, err = ioutil.ReadFile(filepath.Join(root(), ".hg/bookmarks.current"))
     if err == nil {
       return "➘ " + strings.TrimSpace(string(b))
     } else {
-      b, err = ioutil.ReadFile(filepath.Join(root(), "branch"))
+      b, err = ioutil.ReadFile(filepath.Join(root(), ".hg/branch"))
       if err == nil {
         return " " + strings.TrimSpace(string(b))
       }
@@ -73,7 +73,7 @@ func where() string {
 
 func dirty() bool {
 	// Run hg status in background to refresh fsmonitor.state
-	state, err := ioutil.ReadFile(filepath.Join(root(), "fsmonitor.state"))
+	state, err := ioutil.ReadFile(filepath.Join(root(), ".hg/fsmonitor.state"))
 	check(err)
 	parts := bytes.Split(state, []byte("\x00"))
 	return len(parts) >= 8

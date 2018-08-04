@@ -35,7 +35,7 @@ color =
 progress =
 journal =
 shelve =
-prompt = ~/.hg_prompt.py
+#prompt = ~/.hg_prompt.py
 
 [color]
 status.modified = blue bold
@@ -66,7 +66,7 @@ qnew = -U
 
 [alias]
 s = !$HG sum; $HG status; $HG resolve -l; $HG stack --color=always | head -n12
-ss = !$HG stack --color=always | head -n85
+ss = !$HG stack --color=always | head -n79
 l = log -M --removed --user "Thomas Achtemichuk" --template "{date|shortdate} {if(bookmark, '{bookmarks}', '{branches}')} {desc|firstline}\n"
 lt = log -r "topic(.)"
 d = diff
