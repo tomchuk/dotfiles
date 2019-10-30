@@ -159,6 +159,10 @@ prompt_virtualenv() {
   fi
 }
 
+prompt_time() {
+  prompt_segment gray black "$(date +%X)"
+}
+
 # Status:
 # - was there an error
 # - am I root
@@ -182,6 +186,7 @@ build_prompt() {
   prompt_dir
   prompt_git
   prompt_hg
+  prompt_time
   prompt_end
 }
 

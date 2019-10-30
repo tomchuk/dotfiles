@@ -19,9 +19,9 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'ajh17/Spacegray.vim'
 Plug 'morhetz/gruvbox'
 " Global
+Plug 'zxqfl/tabnine-vim'
 Plug 'bogado/file-line'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ervandew/supertab'
 Plug 'gregsexton/MatchTag'
 Plug 'majutsushi/tagbar'
 Plug 'milkypostman/vim-togglelist'
@@ -64,7 +64,7 @@ highlight Visual ctermbg=black
 highlight Comment cterm=italic
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii ctermbg=white ctermfg=black
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+" let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 
 " sync default register to clipboard
@@ -88,12 +88,19 @@ let g:python_highlight_all = 1
 let g:python_pep8_indent_multiline_string = -2
 
 " Ale
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\}
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_delay = 500
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_sign_column_always = 0
-let g:ale_python_flake8_options = '--ignore=E501,E121,E128'
-let g:ale_python_mypy_options = '--python-version=3.6 --warn-unused-ignores --warn-unused-configs --follow-imports=silent –-ignore-missing-imports --incremental --disallow-any-explicit --disallow-subclassing-any --warn-return-any --disallow-any-expr'
+let g:ale_python_flake8_options = '--ignore=E501,W504,W503 --exclude=""'
+let g:ale_python_mypy_options = '--python-version=3.7 --ignore-missing-imports --follow-imports silent --disallow-untyped-calls --disallow-untyped-defs --disallow-incomplete-defs --check-untyped-defs --incremental'
+" let g:ale_python_mypy_options = '--python-version=3.7 --warn-unused-ignores --warn-unused-configs --follow-imports=silent –-ignore-missing-imports --incremental --disallow-any-explicit --disallow-subclassing-any --warn-return-any --disallow-any-expr'
 " let g:ale_python_flake8_options = '--ignore=E501,E125,E121,E502,E128,E129,E265,E226,E126,E221,E303,302,E271,E261,E127,E131,W291,E231,E262,E202,E302,W293,E203,W391,E116,E301,E201,E251'
 
 " tags
@@ -117,6 +124,29 @@ nmap <silent> <leader>h :set nonumber<CR>:set norelativenumber<CR>:sign unplace 
 " Move half page with Ctrl+J/K
 noremap <C-J> <C-D>
 noremap <C-K> <C-U>
+noremap <C-H> g<Home>
+noremap <C-L> g<End>
+" Map F1 to Esc - stupid touchbar
+map <F1> <Esc>
+imap <F1> <Esc>
+
+" Move through wrapped lines naturally
+noremap <buffer> <silent> k gk
+noremap <buffer> <silent> j gj
+noremap <buffer> <silent> 0 g0
+noremap <buffer> <silent> ^ g^
+noremap <buffer> <silent> $ g$
+noremap <buffer> <silent> <Up> gk
+noremap <buffer> <silent> <Down> gj
+noremap <buffer> <silent> <Home> g<Home>
+noremap <buffer> <silent> <End> g<End>
+inoremap <buffer> <silent> <Up> <C-o>gk
+inoremap <buffer> <silent> <Down> <C-o>gj
+inoremap <buffer> <silent> <Home> <C-o>g<Home>
+inoremap <buffer> <silent> <End> <C-o>g<End>
+
+nmap <silent> <C-n> <Plug>(ale_previous_wrap)
+nmap <silent> <C-p> <Plug>(ale_next_wrap)
 
 " strip trailing whitespace on save
 function! <SID>StripTrailingWhitespaces()
@@ -158,6 +188,7 @@ set fillchars=vert:·
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 set guioptions-=T
 set guioptions-=m
+set guicursor=
 set hidden
 set history=10000
 set hlsearch
@@ -171,6 +202,7 @@ set noshowmode
 set nostartofline
 set swapfile
 set number
+set regexpengine=1
 set relativenumber
 set ruler
 set scrolloff=3
@@ -192,8 +224,10 @@ set ts=2 sts=2 sw=2 et ci
 set ttyfast
 set undodir=~/.vim/undo//
 set undofile
-set viminfo+=n~/.vim/viminfo
 set visualbell
 set wildmenu
 set wrap
 set wrapscan
+if !has('nvim')
+  set viminfo+=n~/.vim/viminfo
+endif

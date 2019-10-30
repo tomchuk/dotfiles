@@ -14,7 +14,7 @@ for file in src/dotfiles/.*; do
 done
 rm .git
 for file in src/dotfiles/prezto/runcoms/*; do
-  ln -s $file ".`basname $file`"
+  ln -s $file ".`basename $file`"
 done
 ln -s src/dotfiles/preztto .zprezto
 
@@ -24,6 +24,7 @@ ln -s src/dotfiles/preztto .zprezto
 # thomas ALL=(ALL) NOPASSWD: ALL /etc/sudoers
 
 brew tap homebrew/cask-versions
+brew tap sonicbids/sb
 brew cask install iterm2-nightly
 brew install zsh zsh-completions
 brew install vim --with-override-system-vi

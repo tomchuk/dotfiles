@@ -1,7 +1,7 @@
 [ui]
 username = Thomas Achtemichuk <tom@tomchuk.com>
 merge = internal:merge
-# merge = Kaleidoscope
+#merge = Kaleidoscope
 # merge = vimdiff
 editor = vim
 paginate = never
@@ -15,13 +15,12 @@ vimdiff.args = -f -d -c "wincmd J" "$output" "$local" "$base" "$other"
 
 [extdiff]
 cmd.ksdiff = /usr/local/bin/ksdiff
-opts.ksdiff = --changeset --wait --filelist
+opts.ksdiff = --changeset --filelist
 
 [phases]
 publish = False
 
 [extensions]
-hgext.extdiff =
 strip =
 mq =
 extdiff =
@@ -35,6 +34,7 @@ color =
 progress =
 journal =
 shelve =
+purge =
 #prompt = ~/.hg_prompt.py
 
 [color]
@@ -64,14 +64,24 @@ showfunc = 1
 commit = -v
 qnew = -U
 
+[experimental]
+evolution.obsdiscovery = no
+#obshashrange = yes
+#obshashrange.lru-size = 100000
+#obshashrange.max-revs = 100000
+#obshashrange.warm-cache = auto
+
 [alias]
 s = !$HG sum; $HG status; $HG resolve -l; $HG stack --color=always | head -n12
-ss = !$HG stack --color=always | head -n79
+ss = !$HG stack --color=always -v | head -n79
 l = log -M --removed --user "Thomas Achtemichuk" --template "{date|shortdate} {if(bookmark, '{bookmarks}', '{branches}')} {desc|firstline}\n"
-lt = log -r "topic(.)"
+lt = !$HG log -r "troubled()"; $HG log -r "branch(int) and head()" -T 'head: {node|short} - {desc}\n'
 d = diff
 cut = !$HG up default && $HG topics BKSTG-$@
-blame = annotate -d -u -q -c
+blame = annotate -d -u -q -c -l
 kd = !$HG ksdiff $@
 ks = !$HG ksdiff -c $@
 lg = log -M --removed --template "{label('custom.rev',node|short)} - {if(bookmarks,'(')}{label('custom.bm',bookmarks)}{if(bookmarks,') ')}{desc|firstline} ({label('custom.date',date|age)}) <{label('custom.author',author|person)}>\n"
+mi = !TOPIC=$($HG log -r . -T "{topic}") && [ ! -z "$TOPIC" ] && echo "Merging $TOPIC into int" && $HG pull && $HG up int && $HG merge $TOPIC && hg commit -m "Merge $TOPIC" && hg push -b int && hg up $TOPIC
+r = !flake8 $1 && hg resolve -m $1
+pr = !$HG ksdiff -r "topic('$1') and not branch('default') and not merge()"
